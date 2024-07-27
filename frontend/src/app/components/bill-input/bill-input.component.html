@@ -1,0 +1,54 @@
+<div class="bill-input">
+    <h2>Bill Items</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.quantity * item.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>People</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let person of people">
+                <td>{{ person.name }}</td>
+                <td>{{ person.items.map(id => items.find(item => item.id === id).name).join(', ') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button (click)="calculateBill()">Calculate</button>
+
+    <div *ngIf="result">
+        <h2>Result</h2>
+        <p>Subtotal: Rs. {{ result.subtotal }}</p>
+        <p>GST: Rs. {{ result.gst }}</p>
+        <p>Service Charge: Rs. {{ result.serviceCharge }}</p>
+        <p>Grand Total: Rs. {{ result.grandTotal }}</p>
+
+        <h3>Individual Shares</h3>
+        <ul>
+            <li *ngFor="let person of result.result">
+                {{ person.name }}: Rs. {{ person.total }}
+            </li>
+        </ul>
+    </div>
+</div>
